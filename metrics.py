@@ -1,3 +1,5 @@
+import numpy as np
+import pandas as pd
 
 def accuracy(y_hat, y):
     """
@@ -15,8 +17,12 @@ def accuracy(y_hat, y):
     ensure that the function does not fail in corner cases.
     """
     assert(y_hat.size == y.size)
-    # TODO: Write here
-    pass
+    count = 0
+    for element in range(len(y)):
+        if y[element] == y_hat[element]:
+            count+=1
+    return count/len(y)
+    
 
 def precision(y_hat, y, cls):
     """
@@ -29,7 +35,17 @@ def precision(y_hat, y, cls):
     Output:
     > Returns the precision as float
     """
-    pass
+    TP, FP, TN, FN = 0
+    for i in range(len(y)):
+        if y_hat[i]==y_hat[i]==cls:
+           TP += 1
+        if y_hat[i]==cls and y_hat[i]!=y_hat[i]:
+           FP += 1
+        if y_hat[i]==y_hat[i]!=cls:
+           TN += 1
+        if y_hat[i]!=cls and y_hat[i]!=y_hat[i]:
+           FN += 1
+    return TP/(TP+FP)
 
 def recall(y_hat, y, cls):
     """
@@ -42,7 +58,18 @@ def recall(y_hat, y, cls):
     Output:
     > Returns the recall as float
     """
-    pass
+    TP, FP, TN, FN = 0
+    for i in range(len(y)):
+        if y_hat[i]==y_hat[i]==1:
+           TP += 1
+        if y_hat[i]==cls and y_hat[i]!=y_hat[i]:
+           FP += 1
+        if y_hat[i]==y_hat[i]==0:
+           TN += 1
+        if y_hat[i]!=cls and y_hat[i]!=y_hat[i]:
+           FN += 1
+    return TP/(TP+FN)
+   
 
 def rmse(y_hat, y):
     """
@@ -54,8 +81,9 @@ def rmse(y_hat, y):
     Output:
     > Returns the rmse as float
     """
-
-    pass
+    squared_errors = np.pow(y_hat - y, 2)
+    sum_of_squared_errors = np.sum(squared_errors)
+    return sum_of_squared_errors/ len(y)
 
 def mae(y_hat, y):
     """
@@ -67,4 +95,7 @@ def mae(y_hat, y):
     Output:
     > Returns the mae as float
     """
-    pass
+    absolute_errors = np.abs(y_hat - y)
+    sum_of_absolute_errors = np.sum(absolute_errors)
+    return sum_of_absolute_errors/len(y)
+    
